@@ -18,6 +18,8 @@ function Circle(x,y,dx,dy,radius){
         c.arc(this.x,this.y,this.radius,0,Math.PI * 2, false);
         c.strokeStyle = 'blue';
         c.stroke();
+        c.fillStyle = 'rgba(0,255,0,0.5)';
+        c.fill();
     }
 
     this.update = function(){
@@ -35,14 +37,25 @@ function Circle(x,y,dx,dy,radius){
     }
 } 
 
-var circle = new Circle(200,200,4,4,30);
-circle.draw();
+var circleArray = [];
+
+for (let i = 0; i < 100; i++) {
+    var x = Math.random() * innerWidth;
+    var y = Math.random() * innerHeight;
+    var dx = (Math.random()-0.5)*8;
+    var dy = (Math.random()-0.5)*8;
+    var radius = 30;
+    circleArray.push(new Circle(x,y,dx,dy,radius))
+}
 
 function animate(){
     requestAnimationFrame(animate);
     c.clearRect(0,0,innerWidth,innerHeight);
 
-    circle.update();
+    //circle.update();
+    for (let i = 0; i < circleArray.length; i++) {
+        circleArray[i].update();
+    }
 }
 
 animate();
