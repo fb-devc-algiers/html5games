@@ -27,6 +27,7 @@ function animate(){
     ctx.clearRect(0,0,innerWidth,innerHeight);
 
     //move the circle position
+    //and make it bounce on the borders
     if(x + radius > innerWidth || x - radius < 0){
         speedx = -speedx;
     }
