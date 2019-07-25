@@ -1,8 +1,8 @@
 var canvas = document.querySelector('canvas');
 
 //Set the canvas dimensions
-canvas.width = window.innerWidth-200;
-canvas.height = window.innerHeight-200;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight-50;
 
 //Create 2d rendering context
 var c = canvas.getContext('2d');
