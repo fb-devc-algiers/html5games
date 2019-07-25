@@ -8,11 +8,11 @@ var ctx = canvas.getContext('2d');
 
 //Draw a rectangle
 ctx.fillStyle = 'rgba(255,0,0,0.5)';
-ctx.fillRect(100,100,100,100);
+ctx.fillRect(100,100,150,100);
 
 //Draw rectangle 2
 ctx.fillStyle = 'rgba(0,0,255,0.5)';
-ctx.fillRect(100,400,100,100);
+ctx.fillRect(100,400,100,150);
 
 //Draw rectangle 3
 ctx.fillStyle = 'rgba(0,255,0,0.5)';

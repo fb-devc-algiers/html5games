@@ -56,7 +56,7 @@ for (let i = 0; i < 100; i++) {
     //random speed
     var dx = (Math.random()-0.5)*8;
     var dy = (Math.random()-0.5)*8;
-    //same saize
+    //same size
     var radius = 30;
 
     //push the circle object in the array

@@ -1,20 +1,23 @@
 var canvas = document.querySelector('canvas');
 
+//Set the canvas dimensions
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-var mousex = -400
-var mousey = -400
 
+//Create 2d rendering context
 var c = canvas.getContext('2d');
 
-
+//the circle object decalaration
 function Circle(x,y,dx,dy,radius){
+
+    //the circle properties
     this.x = x;
     this.y = y;
     this.dx = dx;
     this.dy = dy;
     this.radius = radius;
 
+    //the drawing method
     this.draw = function() {
         c.beginPath();
         c.arc(this.x,this.y,this.radius,0,Math.PI * 2, false);
@@ -24,15 +27,19 @@ function Circle(x,y,dx,dy,radius){
         c.fill();
     }
 
+    //the moving method
     this.update = function(){
-
-        if(Math.abs(mousex - this.x) < 100 &&
-        Math.abs(mousey - this.y) < 100) {
+        
+        //if the user click on the ball, make is invisible
+        if(Math.abs(mousex - this.x) < this.radius &&
+        Math.abs(mousey - this.y) < this.radius) {
             this.radius = 0;
             mousex = -400
             mousey = -400
         }
 
+        //move the circle position 
+        //and make it bounce if it touch the canvas border
         if(this.x + this.radius > innerWidth || this.x - this.radius < 0){
             this.dx = -this.dx;
         }
@@ -43,89 +50,56 @@ function Circle(x,y,dx,dy,radius){
         }
         this.y += this.dy;
 
+        //then draw it
         this.draw();
     }
 } 
 
+//an array to keep all the circles to create
 var circleArray = [];
 
+//create 100 circles randomly
 for (let i = 0; i < 20; i++) {
+    //random positionning
     var x = Math.random() * innerWidth;
     var y = Math.random() * innerHeight;
+
+    //random speed
     var dx = (Math.random()-0.5)*8;
     var dy = (Math.random()-0.5)*8;
+
+    //same size
     var radius = 100;
-    let circle = new Circle(x,y,dx,dy,radius);
-    circleArray.push(circle);
+
+    //push the circle object in the array
+    circleArray.push(new Circle(x,y,dx,dy,radius));
 }
 
+
+//animation routine
 function animate(){
+    //method the perform animation in the browser
+    //calling the same function to make an infinite recursive motion
     requestAnimationFrame(animate);
+
+    //erase the defined area
     c.clearRect(0,0,innerWidth,innerHeight);
 
-    //circle.update();
+    //move every ball in the array
     for (let i = 0; i < circleArray.length; i++) {
         circleArray[i].update();
     }
 }
+
+//set a default mouse coordinates far from the balls
+var mousex = -400
+var mousey = -400
+
+//get the mouse click position
 window.addEventListener('click', function (event) {
     mousex = event.x
     mousey = event.y
   })
+
+//run the function animate
 animate();
-
-
-/* c.fillStyle = 'rgba(255,0,0,0.5)';
-c.fillRect(100,100,100,100);
-c.fillStyle = 'rgba(0,0,255,0.5)';
-c.fillRect(400,100,100,100);
-c.fillStyle = 'rgba(0,255,0,0.5)';
-c.fillRect(300,300,100,100);
-
-c.beginPath();
-c.moveTo(50,300);
-c.lineTo(300,100);
-c.lineTo(400,300);
-c.strokeStyle = "#fa34a3";
-c.stroke();
-
-c.arc(300,300,30,0,Math.PI*2,false);
-c.stroke();
-
-for (let index = 0; index < 300; index++) {
-    var x = Math.random() * window.innerWidth;
-    var y = Math.random() * window.innerWidth;
-
-    c.beginPath();
-    c.arc(x,y,30,0,Math.PI * 2, false);
-    c.strokeStyle = 'blue';
-    c.stroke();
-} */
-
-/*
-function Circle(x,y) {
-    this.x = x;
-    this.y = y;
-    this.draw = function(){
-
-    }
-}
-
-var circle = new Circle(200,200);
-
-var x = Math.random() * innerWidth;
-var y = Math.random() * innerHeight;
-var dx = (Math.random() - 0.5) * 8;
-var dy = (Math.random() - 0.5) * 8;
-
-var radius = 30;
-function animate() {
-    requestAnimationFrame(animate);
-    circle.clearRect(0,0,innerWidth, innerHeight);
-    circle.draw();
-    circle.beginPath();
-    circle.arc(x,y,0,Math.PI * 2, false);
-    circle.strokeStyle = 'blue';
-    circle.stroke;
-}
-*/
